@@ -1,6 +1,9 @@
 import '../styles/page.css'
+import "../styles/forms.css"
 import { useState } from "react"
 import plusIcon from '../assets/plus-icon.svg'
+import checkIcon from "../assets/check-icon.svg"
+import trashIcon from "../assets/trash-icon.svg"
 
 function Page() {
     const [isEditingPersonal, setIsEditingPersonal] = useState(false);
@@ -62,40 +65,40 @@ function SectionHeader(props) {
 function PersonalDetailsForm(props) {
     return (
         <form className="personal-details-form">
-            <div className="name-container">
-                <div className="first-name-container">
-                    <label for="first-name">First name:</label>
-                    <input type="text" id="first-name" placeholder="John" autocomplete="given-name" name="first-name" />
-                </div>
+            <h4 className="section-header">PERSONAL DETAILS</h4>
 
-                <div className="last-name-container">
-                    <label for="last-name">Last name:</label>
-                    <input type="text" id="last-name" placeholder="Deer" autocomplete="family-name" name="last-name" />
-                </div>
+            <div className="first-name-container">
+                <label for="first-name">First name</label>
+                <input type="text" id="first-name" placeholder="John" autocomplete="given-name" name="first-name" />
+            </div>
+
+            <div className="last-name-container">
+                <label for="last-name">Last name</label>
+                <input type="text" id="last-name" placeholder="Deer" autocomplete="family-name" name="last-name" />
             </div>
 
             <div className="job-title-container">
-                <label for="job-title">Current job title:</label>
+                <label for="job-title">Current job title</label>
                 <input type="text" id="job-title" placeholder="Software developer" autocomplete="organization-title" name="job-title" />
             </div>
 
             <div className="email-container">
-                <label for="email">E-mail:</label>
+                <label for="email">E-mail</label>
                 <input type="email" id="email" placeholder="your@email.com" autocomplete="email" name="email" />
             </div>
 
             <div className="phone-number-container">
-                <label for="phone-number">Phone number:</label>
+                <label for="phone-number">Phone number</label>
                 <input type="tel" id="phone-number" placeholder="+420 111 222 333" autocomplete="tel" name="phone-number" />
             </div>
 
             <div className="city-container">
-                <label for="city">City:</label>
+                <label for="city">City</label>
                 <input type="text" id="city" placeholder="Prague" autocomplete="address-level2" name="city" />
             </div>
 
             <div className="city-container">
-                <label for="country">Country:</label>
+                <label for="country">Country</label>
                 <select autocomplete="country" id="country" name="country">
                     <option>select country</option>
                     <option value="AF">Afghanistan</option>
@@ -352,6 +355,16 @@ function PersonalDetailsForm(props) {
                     <option value="ZW">Zimbabwe</option>
                 </select>
             </div>
+
+            <button className="remove-section remove-button remove-personal-details">
+                <img src={trashIcon} alt="Trash icon" className="trash-icon" />
+                <span>Remove</span>
+            </button>
+
+            <button className="save-section save-button save-personal-details">
+                <img src={checkIcon} alt="Check icon" className="check-icon" />
+                <span>Save</span>
+            </button>
         </form>
     )
 }

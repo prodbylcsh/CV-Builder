@@ -1,0 +1,94 @@
+.personal-details-form {
+    display: grid;
+    grid-template: max-content 1fr 1fr 1fr 1fr min-content / 1fr 1fr;
+    border: 1px solid rgb(200, 200, 200);
+    padding: 15px;
+    border-radius: 15px;
+    background-color: rgb(242, 240, 231);
+    gap: 15px;
+    color: rgb(45, 45, 45);
+}
+
+.personal-details-form h4 {
+    padding: 0;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.section-header {
+    grid-row: 1/2;
+    grid-column: 1/-1;
+}
+
+.personal-details-form div[class*="-container"] {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.personal-details-form div[class*="-container"] label {
+    font-size: 0.8rem;
+}
+
+.personal-details-form input {
+    line-height: 1.5rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(200, 200, 200);
+}
+
+.personal-details-form select {
+    line-height: 1.5rem;
+    height: 2rem;
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid rgb(200, 200, 200);
+}
+
+.save-button {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-row: -1 / -2;
+    grid-column: -1 / -2;
+    justify-self: end;
+    height: 2em;
+    padding: 20px 15px;
+    background-color: black;
+    color: white;
+    gap: 5px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.personal-details-form img[class*="-icon"] {
+    width: 1em;
+    height: auto;
+}
+
+.personal-details-form .check-icon {
+    filter: invert();
+}
+
+.remove-button {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-row: -1 / -2;
+    grid-column: 1 / 2;
+    justify-self: start;
+    height: 2em;
+    padding: 20px 5px;
+    background-color: inherit;
+    color: rgb(70, 70, 70);
+    gap: 5px;
+    border: none;
+    border-radius: 10px;
+}
+
+.personal-details-form button:hover {
+    border: none;
+}
