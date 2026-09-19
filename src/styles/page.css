@@ -25,27 +25,35 @@
     height: auto;
 }
 
-button {
+.a4-page>button {
     background: none;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
     border-radius: 10px;
+    border: 1px dashed rgb(221, 221, 221);
+}
+
+.personal-details-button {
     height: 30mm;
-    border: 1px dashed rgb(199, 199, 199);
+}
+
+.education-button,
+.work-experience-button {
+    height: 20mm;
 }
 
 button:hover {
     cursor: pointer;
-    border: 1px solid rgb(199, 199, 199);
+    border: 1px solid rgb(221, 221, 221);
 }
 
 .sectionHeader {
     display: flex;
     justify-content: space-between;
     padding: 5px 0px;
-    border-bottom: 1px solid rgb(199, 199, 199);
+    border-bottom: 1px solid rgb(221, 221, 221);
 }
 
 .sectionName {

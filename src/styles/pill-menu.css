@@ -1,0 +1,226 @@
+.pill-menu button {
+    border: none;
+    background-color: none;
+}
+
+.pill-menu {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgb(15, 15, 15);
+    color: white;
+    padding: 5px 5px 5px 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    gap: 15px;
+    width: max-content;
+}
+
+.font-name-menu {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pill-menu img {
+    filter: invert();
+    width: 1em;
+    height: auto;
+}
+
+select {
+    width: max-content;
+    background: none;
+    color: white;
+    border: none;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+.menu-separator {
+    width: 1px;
+    height: 1em;
+    background: rgb(221, 221, 221);
+    flex-shrink: 0;
+}
+
+.accent-color-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.accent-color-picker-container {
+    padding: 2px;
+    border: 1px solid rgb(111, 111, 111);
+    border-radius: 35px;
+    width: 1.5em;
+    height: 1.5em;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accent-color-preview {
+    background: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 0;
+}
+
+
+/* Chrome / Edge / Safari */
+.accent-color-preview::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.accent-color-preview::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+/* Firefox */
+.accent-color-preview::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
+.layout-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.theme-switch-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px;
+    border-radius: 999px;
+    background: #262626;
+    cursor: pointer;
+    user-select: none;
+    gap: 15px;
+}
+
+.theme-switch input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    padding: 0;
+}
+
+.theme-option {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    transition:
+        color 0.2s ease;
+}
+
+.theme-option span:first-child {
+    width: 12px;
+    height: 16px;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+}
+
+.light-icon {
+    color: black;
+    background-color: white;
+}
+
+.dark-icon {
+    color: white;
+    background-color: black;
+}
+
+/* Light selected */
+.theme-switch input:not(:checked)~.light {
+    background: #f5f4ef;
+}
+
+.theme-switch input:not(:checked)~.light .light-text {
+    color: #222;
+}
+
+.theme-switch input:checked~.light .light-text {
+    color: rgb(236, 236, 236);
+}
+
+/* Dark selected */
+.theme-switch input:checked~.dark {
+    background: #f5f4ef;
+    color: #222;
+}
+
+.theme-switch input:checked~.dark .dark-text {
+    color: #222;
+}
+
+.theme-switch input:not(:checked)~.dark .dark-text {
+    color: rgb(236, 236, 236);
+}
+
+.preview-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: inherit;
+    color: white;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.preview-button:hover {
+    border: none;
+}
+
+.download-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: rgb(178, 75, 6);
+    color: white;
+    height: 100%;
+    border-radius: 25px;
+    width: max-content;
+    font-weight: bold;
+    padding: 10px;
+}
+
+.download-button:hover {
+    border: none;
+}
+
+.preview-button>img,
+.download-button>img {
+    height: 1.5em;
+    width: auto;
+}

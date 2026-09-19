@@ -8,18 +8,21 @@ function Page() {
         >
             <AddButton
                 title="Add personal details"
+                className="personal-details-button"
             />
             <SectionHeader
                 name="EDUCATION"
             />
             <AddButton
                 title="Add education"
+                className="education-button"
             />
             <SectionHeader
                 name="WORK EXPERIENCE"
             />
             <AddButton
                 title="Add work experience"
+                className="work-experience-button"
             />
         </div>
     )
@@ -29,6 +32,7 @@ function AddButton(props) {
     return (
         <button
             type="button"
+            className={props.className}
         >
             <div className="plus-icon-container">
                 <img src={plusIcon} alt="Plus icon" className="plus-icon" />
