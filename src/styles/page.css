@@ -1,0 +1,54 @@
+.a4-page {
+    width: 210mm;
+    min-height: 297mm;
+    font-family: var(--cv-font);
+    background-color: white;
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.08);
+    margin: 10mm auto;
+    padding: 10mm 15mm;
+    display: flex;
+    flex-direction: column;
+    gap: 5mm;
+}
+
+.plus-icon-container {
+    background: rgb(243, 243, 243);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.plus-icon {
+    width: 1em;
+    height: auto;
+}
+
+button {
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    height: 30mm;
+    border: 1px dashed rgb(199, 199, 199);
+}
+
+button:hover {
+    cursor: pointer;
+    border: 1px solid rgb(199, 199, 199);
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0px;
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
+.sectionName {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
