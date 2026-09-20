@@ -9,6 +9,7 @@ import locationIcon from "../assets/location-icon.svg"
 import pencilIcon from "../assets/pencil-icon.svg"
 import phoneIcon from "../assets/phone-icon.svg"
 import { countries } from "../data/countries.js"
+import { useDraft } from "../hooks/useDraft.js"
 
 const EMPTY_PERSONAL = {
     firstName: "",
@@ -66,11 +67,7 @@ function SectionHeader(props) {
 }
 
 function PersonalDetailsForm({ initial, onSave, onRemove }) {
-    const [draft, setDraft] = useState(initial)
-
-    function handleChange(e) {
-        setDraft({ ...draft, [e.target.name]: e.target.value })
-    }
+    useDraft(initial)
 
     return (
         <form className="personal-details-form" onSubmit={(e) => {
@@ -147,15 +144,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 </select>
             </div>
 
-            <button type="button" className="remove-section remove-button remove-personal-details" onClick={onRemove}>
-                <img src={trashIcon} alt="Trash icon" className="trash-icon" />
-                <span>Remove</span>
-            </button>
-
-            <button type="submit" className="save-section save-button save-personal-details">
-                <img src={checkIcon} alt="Check icon" className="check-icon" />
-                <span>Save</span>
-            </button>
+            <FormActions sectionName="personal-details" />
         </form>
     )
 }
@@ -229,10 +218,22 @@ function PersonalDetailsDisplay({ personal, onEdit }) {
                     <span className="location">{personal.city}, {country}</span>
                 </a>
             </div>
-            <button type="button" className="edit-button" onClick={onEdit}>
-                <img src={pencilIcon} alt="Pencil icon" className="pencil-icon" />
-            </button>
+            <IconButton
+                containerClass="edit-button"
+                onClick={onEdit}
+                icon={pencilIcon}
+                alt="Pencil icon"
+                imgClass="pencil-icon"
+            />
         </div>
+    )
+}
+
+function IconButton({ containerClass, onClick, icon, alt, imgClass }) {
+    return (
+        <button type="button" className={containerClass} onClick={onClick}>
+            <img src={icon} alt={alt} className={imgClass} />
+        </button>
     )
 }
 
@@ -303,11 +304,7 @@ function EducationSection() {
 }
 
 function EducationForm({ initial, index, onSave, onRemove }) {
-    const [draft, setDraft] = useState(initial)
-
-    function handleChange(e) {
-        setDraft({ ...draft, [e.target.name]: e.target.value })
-    }
+    useDraft(initial)
 
     return (
         <form className="education-form" onSubmit={(e) => {
@@ -316,53 +313,74 @@ function EducationForm({ initial, index, onSave, onRemove }) {
         }
         }>
             <h4 className="section-header">EDUCATION • ENTRY {index + 1}</h4>
+            <FormField
+                containerClass="school-container"
+                label="School"
+                name="school"
+                value={draft.school}
+                onChange={handleChange}
+                type="text"
+                placeholder="Charles University"
+                autoComplete="on"
+                required
+            />
 
-            <div className="school-container">
-                <label htmlFor="school">School</label>
-                <input type="text" id="school" placeholder="Charles University" autoComplete="on" name="school"
-                    value={draft.school}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="degree-container"
+                label="Title of study"
+                name="degree"
+                value={draft.degree}
+                onChange={handleChange}
+                type="text"
+                placeholder="Phd., Computer Science"
+                autoComplete="on"
+                required
+            />
 
-            <div className="degree-container">
-                <label htmlFor="degree">Title of study</label>
-                <input type="text" id="degree" placeholder="Phd., Computer Science" autoComplete="on" name="degree"
-                    value={draft.degree}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="from-container"
+                label="From"
+                name="from"
+                value={draft.from}
+                onChange={handleChange}
+                type="text"
+                placeholder="2022"
+                inputMode="numeric"
+                autoComplete="on"
+                required
+            />
 
-            <div className="from-container">
-                <label htmlFor="from">From</label>
-                <input type="text" inputMode="numeric" id="from" placeholder="2022" autoComplete="on" name="from"
-                    value={draft.from}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="to-container"
+                label="To"
+                name="to"
+                value={draft.to}
+                onChange={handleChange}
+                type="text"
+                inputMode="numeric"
+                placeholder="Present"
+                autoComplete="on"
+                required
+            />
 
-            <div className="to-container">
-                <label htmlFor="to">To</label>
-                <input type="text" inputMode="numeric" id="to" placeholder="2025" autoComplete="on" name="to"
-                    value={draft.to}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormActions sectionName="education" />
+        </form>
+    )
+}
 
-            <button type="button" className="remove-section remove-button remove-education" onClick={onRemove}>
+function FormActions({ sectionName }) {
+    return (
+        <>
+            <button type="button" className={"remove-section remove-button remove-" + sectionName} onClick={onRemove}>
                 <img src={trashIcon} alt="Trash icon" className="trash-icon" />
                 <span>Remove</span>
             </button>
 
-            <button type="submit" className="save-section save-button save-education">
+            <button type="submit" className={"save-section save-button save-" + sectionName}>
                 <img src={checkIcon} alt="Check icon" className="check-icon" />
                 <span>Save</span>
             </button>
-        </form>
+        </>
     )
 }
 
@@ -375,13 +393,30 @@ function EducationEntry({ entry, onEdit, onRemove }) {
             </div>
             <div className="entry-dates-container">
                 <span className="entry-dates">{entry.from} - {entry.to}</span>
-                <button type="button" className="edit-button" onClick={onEdit}>
-                    <img src={pencilIcon} alt="Edit" className="pencil-icon" />
-                </button>
-                <button type="button" className="remove-button" onClick={onRemove}>
-                    <img src={trashIcon} alt="Remove" className="trash-icon" />
-                </button>
+                <IconButton
+                    containerClass="edit-button"
+                    onClick={onEdit}
+                    icon={pencilIcon}
+                    alt="Pencil icon"
+                    imgClass="pencil-icon"
+                />
+                <IconButton
+                    containerClass="remove-button"
+                    onClick={onRemove}
+                    icon={trashIcon}
+                    alt="Trash icon"
+                    imgClass="trash-icon"
+                />
             </div>
+        </div>
+    )
+}
+
+function FormField({ containerClass, label, name, value, onChange, ...inputProps }) {
+    return (
+        <div className={{ containerClass } + " form-field"}>
+            <label htmlFor={name}>{label}</label>
+            <input id={name} name={name} value={value} onChange={onChange} {...inputProps} />
         </div>
     )
 }
