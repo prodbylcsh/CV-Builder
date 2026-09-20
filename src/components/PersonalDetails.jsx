@@ -101,62 +101,79 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
         }>
             <h4 className="section-header">PERSONAL DETAILS</h4>
 
-            <div className="first-name-container">
-                <label htmlFor="first-name">First name</label>
-                <input type="text" id="first-name" placeholder="John" autoComplete="given-name" name="firstName"
-                    value={draft.firstName}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="first-name-container"
+                label="First-name"
+                name="firstName"
+                value={draft.firstName}
+                onChange={handleChange}
+                type="text"
+                placeholder="John"
+                autoComplete="given-name"
+                required
+            />
 
-            <div className="last-name-container">
-                <label htmlFor="last-name">Last name</label>
-                <input type="text" id="last-name" placeholder="Deer" autoComplete="family-name" name="lastName"
-                    value={draft.lastName}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="last-name-container"
+                label="Last name"
+                name="lastName"
+                value={draft.lastName}
+                onChange={handleChange}
+                type="text"
+                placeholder="Deer"
+                autoComplete="family-name"
+                required
+            />
 
-            <div className="job-title-container">
-                <label htmlFor="job-title">Current job title</label>
-                <input type="text" id="job-title" placeholder="Software developer" autoComplete="organization-title" name="jobTitle"
-                    value={draft.jobTitle}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="job-title-container"
+                label="Current job title"
+                name="jobTitle"
+                value={draft.jobTitle}
+                onChange={handleChange}
+                type="text"
+                placeholder="Software developer"
+                autoComplete="organization-title"
+                required
+            />
 
-            <div className="email-container">
-                <label htmlFor="email">E-mail</label>
-                <input type="email" id="email" placeholder="your@email.com" autoComplete="email" name="email"
-                    value={draft.email}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="email-container"
+                label="E-mail"
+                name="email"
+                value={draft.email}
+                onChange={handleChange}
+                type="email"
+                placeholder="your@email.com"
+                autoComplete="email"
+                required
+            />
 
-            <div className="phone-number-container">
-                <label htmlFor="phone-number">Phone number</label>
-                <input type="tel" id="phone-number" placeholder="+420 111 222 333" autoComplete="tel" name="phoneNumber"
-                    pattern="\+[0-9]{1,3}( [0-9]{2,4}){2,4}"
-                    value={draft.phoneNumber}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="phone-number-container"
+                label="Phone number"
+                name="phoneNumber"
+                value={draft.phoneNumber}
+                onChange={handleChange}
+                type="tel"
+                placeholder="+420 111 222 333"
+                autoComplete="tel"
+                required
+            />
 
-            <div className="city-container">
-                <label htmlFor="city">City</label>
-                <input type="text" id="city" placeholder="Prague" autoComplete="address-level2" name="city"
-                    value={draft.city}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
+            <FormField
+                containerClass="city-container"
+                label="City"
+                name="city"
+                value={draft.city}
+                onChange={handleChange}
+                type="text"
+                placeholder="Prague"
+                autoComplete="address-level2"
+                required
+            />
 
-            <div className="city-container">
+            <div className="country-container">
                 <label htmlFor="country">Country</label>
                 <select autoComplete="country" id="country" name="country"
                     value={draft.country}
