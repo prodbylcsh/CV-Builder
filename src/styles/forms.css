@@ -1,6 +1,5 @@
-.personal-details-form {
+.a4-page form {
     display: grid;
-    grid-template: max-content 1fr 1fr 1fr 1fr min-content / 1fr 1fr;
     border: 1px solid rgb(200, 200, 200);
     padding: 15px;
     border-radius: 15px;
@@ -9,7 +8,11 @@
     color: rgb(45, 45, 45);
 }
 
-.personal-details-form h4 {
+.personal-details-form {
+    grid-template: max-content 1fr 1fr 1fr 1fr min-content / 1fr 1fr;
+}
+
+form h4 {
     padding: 0;
     margin: 0;
     letter-spacing: 1px;
@@ -20,17 +23,17 @@
     grid-column: 1/-1;
 }
 
-.personal-details-form div[class*="-container"] {
+form div[class*="-container"] {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.personal-details-form div[class*="-container"] label {
+form div[class*="-container"] label {
     font-size: 0.8rem;
 }
 
-.personal-details-form input {
+form input {
     line-height: 1.5rem;
     padding: 3px 8px;
     border-radius: 5px;
@@ -63,12 +66,13 @@
     font-weight: bold;
 }
 
-.personal-details-form img[class*="-icon"] {
+img[class="check-icon"],
+img[class="trash-icon"] {
     width: 1em;
     height: auto;
 }
 
-.personal-details-form .check-icon {
+.check-icon {
     filter: invert();
 }
 
@@ -89,6 +93,10 @@
     border-radius: 10px;
 }
 
-.personal-details-form button:hover {
+form button:hover {
     border: none;
+}
+
+.education-form {
+    grid-template: max-content max-content max-content max-content / 1fr 1fr;
 }

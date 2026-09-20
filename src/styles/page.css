@@ -25,7 +25,7 @@
     height: auto;
 }
 
-.a4-page>button {
+.a4-page .add-button {
     background: none;
     display: flex;
     align-items: center;
@@ -33,6 +33,7 @@
     gap: 10px;
     border-radius: 10px;
     border: 1px dashed rgb(221, 221, 221);
+    width: 100%;
 }
 
 .personal-details-button {

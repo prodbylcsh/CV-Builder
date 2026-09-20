@@ -20,19 +20,16 @@ const EMPTY_PERSONAL = {
     country: "",
 }
 
+const EMPTY_EDUCATION = { id: "", school: "", degree: "", from: "", to: "" }
+const MAX_ENTRIES = 4
+
 function Page() {
     return (
         <div
             className="a4-page"
         >
             <PersonalDetailsSection />
-            <SectionHeader
-                name="EDUCATION"
-            />
-            <AddButton
-                title="Add education"
-                className="education-button"
-            />
+            <EducationSection />
             <SectionHeader
                 name="WORK EXPERIENCE"
             />
@@ -48,7 +45,7 @@ function AddButton(props) {
     return (
         <button
             type="button"
-            className={props.className}
+            className={props.className + " " + "add-button"}
             onClick={props.onClick}
         >
             <div className="plus-icon-container">
@@ -63,7 +60,7 @@ function SectionHeader(props) {
     return (
         <div className="sectionHeader">
             <span className="sectionName">{props.name}</span>
-            <span className="sectionCount">0 / 4</span>
+            <span className="sectionCount">{props.count} / {MAX_ENTRIES}</span>
         </div>
     )
 }
@@ -88,6 +85,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 <input type="text" id="first-name" placeholder="John" autoComplete="given-name" name="firstName"
                     value={draft.firstName}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -96,6 +94,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 <input type="text" id="last-name" placeholder="Deer" autoComplete="family-name" name="lastName"
                     value={draft.lastName}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -104,6 +103,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 <input type="text" id="job-title" placeholder="Software developer" autoComplete="organization-title" name="jobTitle"
                     value={draft.jobTitle}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -112,6 +112,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 <input type="email" id="email" placeholder="your@email.com" autoComplete="email" name="email"
                     value={draft.email}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -121,6 +122,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                     pattern="\+[0-9]{1,3}( [0-9]{2,4}){2,4}"
                     value={draft.phoneNumber}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -129,6 +131,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 <input type="text" id="city" placeholder="Prague" autoComplete="address-level2" name="city"
                     value={draft.city}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -137,6 +140,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
                 <select autoComplete="country" id="country" name="country"
                     value={draft.country}
                     onChange={handleChange}
+                    required
                 >
                     <option value="">select country</option>
                     {countries.map(c => <option key={c.code} value={c.code}>{c.country}</option>)}
@@ -229,6 +233,123 @@ function PersonalDetailsDisplay({ personal, onEdit }) {
                 <img src={pencilIcon} alt="Pencil icon" className="pencil-icon" />
             </button>
         </div>
+    )
+}
+
+function EducationSection() {
+    const [entries, setEntries] = useState([])
+    const [editingId, setEditingId] = useState(null)
+
+    function handleAdd() {
+        const entry = { ...EMPTY_EDUCATION, id: crypto.randomUUID() }
+        setEntries([...entries, entry])
+        setEditingId(entry.id)
+    }
+
+    function handleSave(updated) {
+        setEntries(entries.map(e => e.id === updated.id ? updated : e))
+        setEditingId(null)
+    }
+
+    function handleRemove(id) {
+        setEntries(entries.filter(e => e.id !== id))
+        setEditingId(null)
+    }
+
+    return (
+        <>
+            <SectionHeader name="EDUCATION" count={entries.length} />
+
+            {entries.map((entry, index) =>
+                entry.id === editingId
+                    ? <EducationForm
+                        key={entry.id}
+                        initial={entry}
+                        index={index}
+                        onSave={handleSave}
+                        onRemove={() => handleRemove(entry.id)}
+                        entryCount={entries.length}
+                    />
+                    : <EducationEntry
+                        key={entry.id}
+                        entry={entry}
+                        onEdit={() => setEditingId(entry.id)}
+                        onRemove={() => handleRemove(entry.id)}
+                    />
+            )}
+
+            {entries.length < MAX_ENTRIES && (
+                <AddButton
+                    title="Add education"
+                    className="education-button"
+                    onClick={handleAdd}
+                />
+            )}
+        </>
+    )
+}
+
+function EducationForm({ initial, index, onSave, onRemove, entryCount }) {
+    const [draft, setDraft] = useState(initial)
+
+    function handleChange(e) {
+        setDraft({ ...draft, [e.target.name]: e.target.value })
+    }
+
+    return (
+        <form className="education-form" onSubmit={(e) => {
+            e.preventDefault()
+            onSave(draft)
+        }
+        }>
+            <h4 className="section-header">EDUCATION • ENTRY {entryCount}</h4>
+
+            <div className="school-container">
+                <label htmlFor="school">School</label>
+                <input type="text" id="school" placeholder="Charles University" autoComplete="on" name="school"
+                    value={draft.school}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+
+            <div className="degree-container">
+                <label htmlFor="degree">Title of study</label>
+                <input type="text" id="degree" placeholder="Phd., Computer Science" autoComplete="on" name="degree"
+                    value={draft.degree}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+
+            <div className="from-container">
+                <label htmlFor="from">From</label>
+                <input type="text" inputMode="numeric" id="from" placeholder="2022" autoComplete="on" name="from"
+                    value={draft.from}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+
+            <div className="to-container">
+                <label htmlFor="to">To</label>
+                <input type="text" inputMode="numeric" id="to" placeholder="2025" autoComplete="on" name="to"
+                    value={draft.to}
+                    onChange={handleChange}
+                    required
+                />
+            </div>
+
+            <button type="button" className="remove-section remove-button remove-education" onClick={onRemove}>
+                <img src={trashIcon} alt="Trash icon" className="trash-icon" />
+                <span>Remove</span>
+            </button>
+
+            <button type="submit" className="save-section save-button save-education">
+                <img src={checkIcon} alt="Check icon" className="check-icon" />
+                <span>Save</span>
+            </button>
+        </form>
     )
 }
 
