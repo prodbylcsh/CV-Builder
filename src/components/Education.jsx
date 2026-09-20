@@ -9,15 +9,21 @@ import { useEntryList } from "../hooks/useEntryList.js"
 import pencilIcon from "../assets/pencil-icon.svg"
 import trashIcon from "../assets/trash-icon.svg"
 
-export function EducationSection() {
-    const { entries, editingId, handleAdd, handleEdit, handleSave, handleRemove } = useEntryList(EMPTY_EDUCATION)
+export function EducationSection({ isPreview }) {
+    const { entries, editingId, newId, handleAdd, handleEdit, handleSave, handleRemove } = useEntryList(EMPTY_EDUCATION)
+
+    const visible = isPreview ? entries.filter(e => e.id !== newId) : entries
+
+    if (isPreview && visible.length === 0) {
+        return null
+    }
 
     return (
-        <>
+        <section className="cv-section education-section">
             <SectionHeader name="EDUCATION" count={entries.length} />
 
-            {entries.map((entry, index) =>
-                entry.id === editingId
+            {visible.map((entry, index) =>
+                !isPreview && entry.id === editingId
                     ? <EducationForm
                         key={entry.id}
                         initial={entry}
@@ -33,14 +39,14 @@ export function EducationSection() {
                     />
             )}
 
-            {entries.length < MAX_ENTRIES && (
+            {!isPreview && entries.length < MAX_ENTRIES && (
                 <AddButton
                     title="Add education"
                     className="education-button"
                     onClick={handleAdd}
                 />
             )}
-        </>
+        </section>
     )
 }
 

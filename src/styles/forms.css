@@ -94,10 +94,6 @@ img[class="trash-icon"] {
     border-radius: 10px;
 }
 
-form button:hover {
-    border: none;
-}
-
 .education-form {
     grid-template: max-content max-content max-content max-content / 1fr 1fr;
 }

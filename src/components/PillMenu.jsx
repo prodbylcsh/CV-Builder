@@ -3,79 +3,123 @@ import fontIcon from "../assets/font-icon.svg"
 import layoutIcon from "../assets/layout-icon.svg"
 import eyeIcon from "../assets/eye-icon.svg"
 import downloadIcon from "../assets/download-icon.svg"
+import { ACCENT_PRESETS, FONTS, LAYOUTS } from "../data/constants.js"
+import { Dropdown } from "./ui/Dropdown.jsx"
 
-function PillMenu() {
+function PillMenu({ theme, onChange, isPreview, onTogglePreview }) {
     return (
         <div className="pill-menu">
-            <FontMenu />
+            <FontMenu value={theme.font} onChange={(font) => onChange({ font })} />
             <MenuSeparator />
-            <AccentMenu />
+            <AccentMenu value={theme.accent} onChange={(accent) => onChange({ accent })} />
             <MenuSeparator />
-            <LayoutMenu />
+            <LayoutMenu value={theme.layout} onChange={(layout) => onChange({ layout })} />
             <MenuSeparator />
-            <ThemeSwitcher />
+            <ThemeSwitcher value={theme.mode} onChange={(mode) => onChange({ mode })} />
             <MenuSeparator />
-            <PreviewButton />
+            <PreviewButton isPreview={isPreview} onClick={onTogglePreview} />
             <DownloadButton />
         </div>
     )
 }
 
-function FontMenu(props) {
+function FontMenu({ value, onChange }) {
+    const current = FONTS.find(f => f.key === value)
+
     return (
-        <div className="font-name-menu">
-            <img src={fontIcon} alt="Plus icon" className="font-icon" />
-            <select className="font-picker">
-                <option value="inter">Inter</option>
-                <option value="lato">Lato</option>
-                <option value="noto">Noto Sans</option>
-            </select>
-        </div>
+        <Dropdown label={current.name} icon={<img src={fontIcon} alt="" />}>
+            <div className="panel-title">Typeface</div>
+            {FONTS.map(f => (
+                <button
+                    key={f.key}
+                    type="button"
+                    className={"panel-option" + (f.key === value ? " selected" : "")}
+                    onClick={() => onChange(f.key)}
+                >
+                    <span className="font-sample" style={{ fontFamily: `var(--font-${f.key})` }}>Aa</span>
+                    <span className="option-text">
+                        <span className="option-name">{f.name}</span>
+                        <span className="option-desc">{f.description}</span>
+                    </span>
+                    {f.key === value && <span className="check">✓</span>}
+                </button>
+            ))}
+        </Dropdown>
     )
 }
 
-function MenuSeparator(props) {
+function MenuSeparator() {
     return (
         <div className="menu-separator">
         </div>
     )
 }
 
-function AccentMenu(props) {
+function AccentMenu({ value, onChange }) {
     return (
-        <div className="accent-color-menu">
-            <div className="accent-color-picker-container">
-                <input className="accent-color-preview" type="color" value="#ffffff" disabled />
+        <Dropdown label="Accent" icon={<span className="swatch" style={{ backgroundColor: value }} />}>
+            <div className="panel-title">Accent color</div>
+            <div className="swatch-row">
+                {ACCENT_PRESETS.map(p => (
+                    <button
+                        key={p.value}
+                        type="button"
+                        className={"swatch swatch-option" + (p.value === value ? " selected" : "")}
+                        style={{ backgroundColor: p.value }}
+                        title={p.name}
+                        onClick={() => onChange(p.value)}
+                    />
+                ))}
             </div>
-            <select className="accent-color-picker">
-                <option value="brown">Brown</option>
-                <option value="blue">Blue</option>
-                <option value="black">Black</option>
-                <option value="white">White</option>
-                <option value="custom">Custom</option>
-            </select>
-        </div>
+            <label className="custom-row" onClick={(e) => e.stopPropagation()}>
+                <input
+                    type="color"
+                    className="accent-color-preview"
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                />
+                <span>Custom</span>
+                <span className="hex">{value.toUpperCase()}</span>
+            </label>
+        </Dropdown>
     )
 }
 
-function LayoutMenu(props) {
+function LayoutMenu({ value, onChange }) {
+    const current = LAYOUTS.find(l => l.key === value)
+
     return (
-        <div className="layout-menu">
-            <img src={layoutIcon} alt="Layout icon" className="layout-icon" />
-            <select className="accent-color-picker">
-                <option value="classic">Classic</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-            </select>
-        </div>
+        <Dropdown label={current.name} icon={<img src={layoutIcon} alt="" />}>
+            <div className="panel-title">Layout</div>
+            <div className="layout-row">
+                {LAYOUTS.map(l => (
+                    <button
+                        key={l.key}
+                        type="button"
+                        className={"layout-option" + (l.key === value ? " selected" : "")}
+                        onClick={() => onChange(l.key)}
+                    >
+                        <span className={"layout-thumb thumb-" + l.key}>
+                            <i /><i /><i /><i />
+                        </span>
+                        <span>{l.name}</span>
+                    </button>
+                ))}
+            </div>
+        </Dropdown>
     )
 }
 
-function ThemeSwitcher(props) {
+function ThemeSwitcher({ value, onChange }) {
     return (
         <div className="theme-switch-menu">
             <label className="theme-switch">
-                <input type="checkbox" className="themeToggle" />
+                <input
+                    type="checkbox"
+                    className="themeToggle"
+                    checked={value === "dark"}
+                    onChange={(e) => onChange(e.target.checked ? "dark" : "light")}
+                />
 
                 <span className="theme-option light">
                     <span className="light-icon"></span>
@@ -95,16 +139,20 @@ function ThemeSwitcher(props) {
     )
 }
 
-function PreviewButton(props) {
+function PreviewButton({ isPreview, onClick }) {
     return (
-        <button type="button" className="preview-button">
+        <button
+            type="button"
+            className={"preview-button" + (isPreview ? " active" : "")}
+            onClick={onClick}
+        >
             <img src={eyeIcon} alt="Eye icon" className="eye-icon" />
-            <span>Preview</span>
+            <span>{isPreview ? "Edit" : "Preview"}</span>
         </button>
     )
 }
 
-function DownloadButton(props) {
+function DownloadButton() {
     return (
         <button type="button" className="download-button">
             <img src={downloadIcon} alt="Download icon" className="download-icon" />

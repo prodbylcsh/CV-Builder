@@ -37,6 +37,7 @@ export function useEntryList(emptyEntry) {
     return {
         entries,
         editingId,
+        newId,
         handleAdd,
         handleEdit,
         handleSave,

@@ -7,10 +7,16 @@ button {
     width: 210mm;
     min-height: 297mm;
     font-family: var(--cv-font);
-    background-color: white;
+    background-color: var(--paper, white);
     box-shadow: 0 0 35px rgba(0, 0, 0, 0.08);
     margin: 10mm auto;
     padding: 10mm 15mm;
+    display: flex;
+    flex-direction: column;
+    gap: 5mm;
+}
+
+.cv-section {
     display: flex;
     flex-direction: column;
     gap: 5mm;
@@ -52,7 +58,10 @@ button {
 
 button:hover {
     cursor: pointer;
-    border: 1px solid rgb(221, 221, 221);
+}
+
+.add-button:hover {
+    border-style: solid;
 }
 
 .sectionHeader {
@@ -83,11 +92,11 @@ button:hover {
     margin: 0;
     padding: 0;
     margin: 8px 0px;
-    color: rgb(178, 75, 6);
+    color: var(--accent, rgb(178, 75, 6));
 }
 
 .personal-details-container .personal-info {
-    color: grey;
+    color: var(--muted, grey);
     display: flex;
     justify-content: space-between;
     width: max-content;
@@ -149,17 +158,13 @@ button:hover {
     display: flex;
     align-items: flex-start;
     gap: 15px;
-    color: grey;
+    color: var(--muted, grey);
 }
 
 .entry-dates-container button {
     padding: 0;
     border: none;
     display: flex;
-}
-
-.entry-dates-container button:hover {
-    border: none;
 }
 
 .entry-dates-container .pencil-icon,
@@ -179,9 +184,47 @@ button:hover {
 }
 
 .entry-subtitle {
-    color: grey;
+    color: var(--muted, grey);
 }
 
 .sectionCount {
-    color: grey;
+    color: var(--muted, grey);
+}
+
+.a4-page.preview {
+    --paper: #fff;
+    --ink: #1a1a1a;
+    --muted: #665;
+    background-color: var(--paper);
+    color: var(--ink);
+}
+
+.a4-page.preview.dark {
+    --paper: #141414;
+    --ink: #f2f2f2;
+    --muted: #a0a0a0;
+}
+
+.a4-page.preview.font-inter {
+    --cv-font: var(--font-inter);
+}
+
+.a4-page.preview.font-lato {
+    --cv-font: var(--font-lato);
+}
+
+.a4-page.preview.font-noto {
+    --cv-font: var(--font-noto);
+}
+
+.a4-page.preview .job-title,
+.a4-page.preview .sectionName,
+.a4-page.preview .entry-subtitle {
+    color: var(--accent);
+}
+
+.a4-page.preview .edit-button,
+.a4-page.preview .remove-button,
+.a4-page.preview .sectionCount {
+    display: none;
 }

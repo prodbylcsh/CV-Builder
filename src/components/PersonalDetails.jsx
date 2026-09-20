@@ -11,7 +11,7 @@ import phoneIcon from "../assets/phone-icon.svg"
 import locationIcon from "../assets/location-icon.svg"
 import pencilIcon from "../assets/pencil-icon.svg"
 
-export function PersonalDetailsSection() {
+export function PersonalDetailsSection({ isPreview }) {
     const [personal, setPersonal] = useState(EMPTY_PERSONAL);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -25,6 +25,10 @@ export function PersonalDetailsSection() {
     function handleRemove() {
         setPersonal(EMPTY_PERSONAL)
         setIsEditing(false)
+    }
+
+    if (isPreview) {
+        return hasData ? <PersonalDetailsDisplay personal={personal} /> : null
     }
 
     if (isEditing) {

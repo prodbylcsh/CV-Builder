@@ -4,14 +4,20 @@ import { PersonalDetailsSection } from "./PersonalDetails.jsx"
 import { EducationSection } from "./Education.jsx"
 import { WorkExperienceSection } from './WorkExperience.jsx'
 
-function Page() {
+function Page({ theme, isPreview }) {
+    const classes = ["a4-page"]
+
+    if (isPreview) {
+        classes.push("preview", `font-${theme.font}`, `layout-${theme.layout}`, theme.mode)
+    }
+
     return (
         <div
-            className="a4-page"
+            className={classes.join(" ")}
         >
-            <PersonalDetailsSection />
-            <EducationSection />
-            <WorkExperienceSection />
+            <PersonalDetailsSection isPreview={isPreview} />
+            <EducationSection isPreview={isPreview} />
+            <WorkExperienceSection isPreview={isPreview} />
         </div>
     )
 }
