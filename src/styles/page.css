@@ -1,3 +1,8 @@
+button {
+    padding: 0;
+    margin: 0;
+}
+
 .a4-page {
     width: 210mm;
     min-height: 297mm;
@@ -98,11 +103,7 @@ button:hover {
     color: inherit;
 }
 
-.personal-details-container .edit-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translateY(50%);
+.displaying-section .edit-button {
     background: inherit;
     border: none;
     display: flex;
@@ -110,7 +111,11 @@ button:hover {
     justify-content: center;
 }
 
-.personal-details-container .pencil-icon {
+.displaying-section .pencil-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(50%);
     width: 1.5em;
     height: auto;
 }
@@ -120,4 +125,63 @@ button:hover {
 .personal-details-container .location-icon {
     height: 1em;
     width: auto;
+}
+
+.education-entry {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.education-entry .remove-button {
+    padding: 0;
+}
+
+.entry-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2px;
+}
+
+.entry-dates-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    color: grey;
+}
+
+.entry-dates-container button {
+    padding: 0;
+    border: none;
+    display: flex;
+}
+
+.entry-dates-container button:hover {
+    border: none;
+}
+
+.entry-dates-container .pencil-icon,
+.entry-dates-container .trash-icon {
+    transform: none;
+    padding: 0;
+}
+
+.education-entry.displaying-section .pencil-icon,
+.education-entry.displaying-section .trash-icon {
+    position: static;
+    filter: brightness(0) invert(0.45);
+}
+
+.entry-title {
+    font-weight: bold;
+}
+
+.entry-subtitle {
+    color: grey;
+}
+
+.sectionCount {
+    color: grey;
 }

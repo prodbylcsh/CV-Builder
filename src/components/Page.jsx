@@ -205,7 +205,7 @@ function PersonalDetailsDisplay({ personal, onEdit }) {
     const country = countries.find(c => c.code === personal.country)?.country;
 
     return (
-        <div className="personal-details-container">
+        <div className="personal-details-container displaying-section">
             <h1 className="full-name">{personal.firstName} {personal.lastName}</h1>
             <h3 className="job-title">{personal.jobTitle}</h3>
             <div className="personal-info">
@@ -268,7 +268,6 @@ function EducationSection() {
                         index={index}
                         onSave={handleSave}
                         onRemove={() => handleRemove(entry.id)}
-                        entryCount={entries.length}
                     />
                     : <EducationEntry
                         key={entry.id}
@@ -289,7 +288,7 @@ function EducationSection() {
     )
 }
 
-function EducationForm({ initial, index, onSave, onRemove, entryCount }) {
+function EducationForm({ initial, index, onSave, onRemove }) {
     const [draft, setDraft] = useState(initial)
 
     function handleChange(e) {
@@ -302,7 +301,7 @@ function EducationForm({ initial, index, onSave, onRemove, entryCount }) {
             onSave(draft)
         }
         }>
-            <h4 className="section-header">EDUCATION • ENTRY {entryCount}</h4>
+            <h4 className="section-header">EDUCATION • ENTRY {index + 1}</h4>
 
             <div className="school-container">
                 <label htmlFor="school">School</label>
@@ -350,6 +349,26 @@ function EducationForm({ initial, index, onSave, onRemove, entryCount }) {
                 <span>Save</span>
             </button>
         </form>
+    )
+}
+
+function EducationEntry({ entry, onEdit, onRemove }) {
+    return (
+        <div className="education-entry displaying-section">
+            <div className="entry-text">
+                <span className="entry-title">{entry.school}</span>
+                <span className="entry-subtitle">{entry.degree}</span>
+            </div>
+            <div className="entry-dates-container">
+                <span className="entry-dates">{entry.from} - {entry.to}</span>
+                <button type="button" className="edit-button" onClick={onEdit}>
+                    <img src={pencilIcon} alt="Edit" className="pencil-icon" />
+                </button>
+                <button type="button" className="remove-button" onClick={onRemove}>
+                    <img src={trashIcon} alt="Remove" className="trash-icon" />
+                </button>
+            </div>
+        </div>
     )
 }
 
