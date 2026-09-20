@@ -239,21 +239,35 @@ function PersonalDetailsDisplay({ personal, onEdit }) {
 function EducationSection() {
     const [entries, setEntries] = useState([])
     const [editingId, setEditingId] = useState(null)
+    const [newId, setNewId] = useState(null)
+
+    function withoutUnsaved(list) {
+        return newId === null ? list : list.filter(e => e.id !== newId)
+    }
 
     function handleAdd() {
         const entry = { ...EMPTY_EDUCATION, id: crypto.randomUUID() }
-        setEntries([...entries, entry])
+        setEntries(prev => [...withoutUnsaved(prev), entry])
         setEditingId(entry.id)
+        setNewId(entry.id)
+    }
+
+    function handleEdit(id) {
+        setEntries(prev => withoutUnsaved(prev))
+        setEditingId(id)
+        setNewId(null)
     }
 
     function handleSave(updated) {
-        setEntries(entries.map(e => e.id === updated.id ? updated : e))
+        setEntries(prev => prev.map(e => e.id === updated.id ? updated : e))
         setEditingId(null)
+        setNewId(null)
     }
 
     function handleRemove(id) {
-        setEntries(entries.filter(e => e.id !== id))
+        setEntries(prev => withoutUnsaved(prev).filter(e => e.id !== id))
         setEditingId(null)
+        setNewId(null)
     }
 
     return (
@@ -272,7 +286,7 @@ function EducationSection() {
                     : <EducationEntry
                         key={entry.id}
                         entry={entry}
-                        onEdit={() => setEditingId(entry.id)}
+                        onEdit={() => handleEdit(entry.id)}
                         onRemove={() => handleRemove(entry.id)}
                     />
             )}
