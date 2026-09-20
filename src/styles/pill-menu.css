@@ -162,7 +162,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    background-color: rgb(178, 75, 6);
+    background-color: var(--ui-accent);
     color: white;
     height: 100%;
     border-radius: 25px;

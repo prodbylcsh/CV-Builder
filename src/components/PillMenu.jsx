@@ -6,7 +6,7 @@ import downloadIcon from "../assets/download-icon.svg"
 import { ACCENT_PRESETS, FONTS, LAYOUTS } from "../data/constants.js"
 import { Dropdown } from "./ui/Dropdown.jsx"
 
-function PillMenu({ theme, onChange, isPreview, onTogglePreview }) {
+function PillMenu({ theme, onChange, isPreview, onTogglePreview, onDownload }) {
     return (
         <div className="pill-menu">
             <FontMenu value={theme.font} onChange={(font) => onChange({ font })} />
@@ -18,7 +18,7 @@ function PillMenu({ theme, onChange, isPreview, onTogglePreview }) {
             <ThemeSwitcher value={theme.mode} onChange={(mode) => onChange({ mode })} />
             <MenuSeparator />
             <PreviewButton isPreview={isPreview} onClick={onTogglePreview} />
-            <DownloadButton />
+            <DownloadButton onClick={onDownload} />
         </div>
     )
 }
@@ -152,9 +152,9 @@ function PreviewButton({ isPreview, onClick }) {
     )
 }
 
-function DownloadButton() {
+function DownloadButton({ onClick }) {
     return (
-        <button type="button" className="download-button">
+        <button type="button" className="download-button" onClick={onClick}>
             <img src={downloadIcon} alt="Download icon" className="download-icon" />
             <span className="download-text">Download PDF</span>
         </button>

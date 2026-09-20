@@ -16,8 +16,10 @@ function Page({ theme, isPreview }) {
             className={classes.join(" ")}
         >
             <PersonalDetailsSection isPreview={isPreview} />
-            <EducationSection isPreview={isPreview} />
-            <WorkExperienceSection isPreview={isPreview} />
+            <div className="cv-body">
+                <EducationSection isPreview={isPreview} />
+                <WorkExperienceSection isPreview={isPreview} />
+            </div>
         </div>
     )
 }

@@ -117,7 +117,7 @@ function EducationForm({ initial, index, onSave, onRemove }) {
 
 function EducationEntry({ entry, onEdit, onRemove }) {
     return (
-        <div className="education-entry displaying-section">
+        <div className="entry-row education-entry displaying-section">
             <div className="entry-text">
                 <span className="entry-title">{entry.school}</span>
                 <span className="entry-subtitle">{entry.degree}</span>

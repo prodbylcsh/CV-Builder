@@ -1,0 +1,36 @@
+@page {
+    size: A4;
+    /* Safari clips the header when the print page has zero vertical margins. */
+    margin: 10mm 0;
+}
+
+@media print {
+    html,
+    body {
+        background: none;
+    }
+
+    #root {
+        min-height: auto;
+        padding: 0;
+    }
+
+    .pill-menu {
+        display: none;
+    }
+
+    .a4-page {
+        /* A4 height minus the top and bottom page margins. */
+        min-height: 277mm;
+        margin: 0;
+        box-shadow: none;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .a4-page.preview.layout-classic {
+        /* The page margins provide Classic's existing vertical whitespace. */
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}

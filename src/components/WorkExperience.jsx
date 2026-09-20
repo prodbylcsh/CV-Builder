@@ -128,7 +128,7 @@ function WorkExperienceForm({ initial, index, onSave, onRemove }) {
 
 function WorkExperienceEntry({ entry, onEdit, onRemove }) {
     return (
-        <div className="work-experience-entry displaying-section">
+        <div className="entry-row work-experience-entry displaying-section">
             <div className="entry-text">
                 <span className="entry-title">{entry.company}</span>
                 <span className="entry-subtitle">{entry.position}</span>
@@ -150,6 +150,7 @@ function WorkExperienceEntry({ entry, onEdit, onRemove }) {
                     imgClass="trash-icon"
                 />
             </div>
+            {entry.description && <p className="entry-description">{entry.description}</p>}
         </div>
     )
 }

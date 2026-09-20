@@ -1,7 +1,7 @@
 import './App.css'
 import { PillMenu } from "./components/PillMenu"
 import { Page } from "./components/Page"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 function App() {
   const [theme, setTheme] = useState({
@@ -11,10 +11,28 @@ function App() {
     mode: "light"
   })
   const [isPreview, setIsPreview] = useState(false)
+  const [printRequested, setPrintRequested] = useState(false)
 
   function updateTheme(patch) {
     setTheme(prev => ({ ...prev, ...patch }))
   }
+
+  function handleDownload() {
+    setIsPreview(true)
+    setPrintRequested(true)
+  }
+
+  useEffect(() => {
+    if (!printRequested) return
+
+    // Reading layout forces the preview font to start loading before we wait on it
+    void document.body.offsetHeight
+
+    document.fonts.ready.then(() => {
+      window.print()
+      setPrintRequested(false)
+    })
+  }, [printRequested])
 
   return (
     <div
@@ -26,6 +44,7 @@ function App() {
         onChange={updateTheme}
         isPreview={isPreview}
         onTogglePreview={() => setIsPreview(p => !p)}
+        onDownload={handleDownload}
       />
     </div>
   )

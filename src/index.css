@@ -1,3 +1,7 @@
+:root {
+    --ui-accent: rgb(178, 75, 6);
+}
+
 * {
     box-sizing: border-box;
 }

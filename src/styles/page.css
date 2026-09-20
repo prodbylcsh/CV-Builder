@@ -16,6 +16,7 @@ button {
     gap: 5mm;
 }
 
+.cv-body,
 .cv-section {
     display: flex;
     flex-direction: column;
@@ -74,6 +75,7 @@ button:hover {
 .sectionName {
     font-weight: bold;
     letter-spacing: 1px;
+    color: var(--accent, var(--ui-accent));
 }
 
 .personal-details-container {
@@ -136,14 +138,22 @@ button:hover {
     width: auto;
 }
 
-.education-entry {
+.entry-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     justify-content: space-between;
 }
 
-.education-entry .remove-button {
+.entry-row .remove-button {
     padding: 0;
+}
+
+.entry-description {
+    flex-basis: 100%;
+    margin: 0;
+    white-space: pre-line;
+    color: var(--muted, grey);
 }
 
 .entry-text {
@@ -173,8 +183,8 @@ button:hover {
     padding: 0;
 }
 
-.education-entry.displaying-section .pencil-icon,
-.education-entry.displaying-section .trash-icon {
+.entry-row .pencil-icon,
+.entry-row .trash-icon {
     position: static;
     filter: brightness(0) invert(0.45);
 }
@@ -205,6 +215,10 @@ button:hover {
     --muted: #a0a0a0;
 }
 
+.a4-page.preview.dark .personal-info img {
+    filter: invert(1);
+}
+
 .a4-page.preview.font-inter {
     --cv-font: var(--font-inter);
 }
@@ -227,4 +241,55 @@ button:hover {
 .a4-page.preview .remove-button,
 .a4-page.preview .sectionCount {
     display: none;
+}
+
+/* ---- layout: sidebar ---- */
+.a4-page.preview.layout-sidebar {
+    display: grid;
+    grid-template-columns: 65mm 1fr;
+    padding: 0;
+    gap: 0;
+}
+
+.a4-page.preview.layout-sidebar .personal-details-container {
+    grid-column: 1;
+    align-content: start;
+    padding: 15mm 8mm;
+    background: color-mix(in srgb, var(--accent) 10%, var(--paper));
+}
+
+.a4-page.preview.layout-sidebar .cv-body {
+    grid-column: 2;
+    padding: 15mm 12mm;
+}
+
+.a4-page.preview.layout-sidebar .full-name {
+    font-size: 1.8em;
+    line-height: 1.1;
+}
+
+.a4-page.preview.layout-sidebar .personal-info {
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+    gap: 8px;
+}
+
+/* ---- layout: band ---- */
+.a4-page.preview.layout-band {
+    --band-bg: var(--accent);
+    padding-top: 0;
+}
+
+.a4-page.preview.layout-band .personal-details-container {
+    --accent: #fff;
+    --muted: rgba(255, 255, 255, 0.85);
+    color: #fff;
+    background: var(--band-bg);
+    margin: 0 -15mm;
+    padding: 12mm 15mm;
+}
+
+.a4-page.preview.layout-band .personal-info img {
+    filter: invert(1);
 }
