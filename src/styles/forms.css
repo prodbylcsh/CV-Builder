@@ -33,7 +33,8 @@ form div[class*="-container"] label {
     font-size: 0.8rem;
 }
 
-form input {
+form input,
+form textarea {
     line-height: 1.5rem;
     padding: 3px 8px;
     border-radius: 5px;
@@ -99,4 +100,19 @@ form button:hover {
 
 .education-form {
     grid-template: max-content max-content max-content max-content / 1fr 1fr;
+}
+
+.work-experience-form {
+    grid-template: max-content max-content max-content max-content max-content / minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.description-container {
+    grid-column: 1 / -1;
+}
+
+.description-container textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 4lh;
+    max-height: 10lh;
 }

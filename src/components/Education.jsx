@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useDraft } from "../hooks/useDraft.js"
 import { EMPTY_EDUCATION, MAX_ENTRIES } from "../data/constants.js"
 import { AddButton } from "./ui/AddButton.jsx"
@@ -6,42 +5,12 @@ import { SectionHeader } from "./ui/SectionHeader.jsx"
 import { IconButton } from "./ui/IconButton.jsx"
 import { FormField } from "./ui/FormField.jsx"
 import { FormActions } from "./ui/FormActions.jsx"
+import { useEntryList } from "../hooks/useEntryList.js"
 import pencilIcon from "../assets/pencil-icon.svg"
 import trashIcon from "../assets/trash-icon.svg"
 
 export function EducationSection() {
-    const [entries, setEntries] = useState([])
-    const [editingId, setEditingId] = useState(null)
-    const [newId, setNewId] = useState(null)
-
-    function withoutUnsaved(list) {
-        return newId === null ? list : list.filter(e => e.id !== newId)
-    }
-
-    function handleAdd() {
-        const entry = { ...EMPTY_EDUCATION, id: crypto.randomUUID() }
-        setEntries(prev => [...withoutUnsaved(prev), entry])
-        setEditingId(entry.id)
-        setNewId(entry.id)
-    }
-
-    function handleEdit(id) {
-        setEntries(prev => withoutUnsaved(prev))
-        setEditingId(id)
-        setNewId(null)
-    }
-
-    function handleSave(updated) {
-        setEntries(prev => prev.map(e => e.id === updated.id ? updated : e))
-        setEditingId(null)
-        setNewId(null)
-    }
-
-    function handleRemove(id) {
-        setEntries(prev => withoutUnsaved(prev).filter(e => e.id !== id))
-        setEditingId(null)
-        setNewId(null)
-    }
+    const { entries, editingId, handleAdd, handleEdit, handleSave, handleRemove } = useEntryList(EMPTY_EDUCATION)
 
     return (
         <>
