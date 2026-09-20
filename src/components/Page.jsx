@@ -15,7 +15,7 @@ const EMPTY_PERSONAL = {
     lastName: "",
     jobTitle: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
     city: "",
     country: "",
 }
@@ -118,6 +118,7 @@ function PersonalDetailsForm({ initial, onSave, onRemove }) {
             <div className="phone-number-container">
                 <label htmlFor="phone-number">Phone number</label>
                 <input type="tel" id="phone-number" placeholder="+420 111 222 333" autoComplete="tel" name="phoneNumber"
+                    pattern="\+[0-9]{1,3}( [0-9]{2,4}){2,4}"
                     value={draft.phoneNumber}
                     onChange={handleChange}
                 />
@@ -224,7 +225,7 @@ function PersonalDetailsDisplay({ personal, onEdit }) {
                     <span className="location">{personal.city}, {country}</span>
                 </a>
             </div>
-            <button type="button" className="edit-button">
+            <button type="button" className="edit-button" onClick={onEdit}>
                 <img src={pencilIcon} alt="Pencil icon" className="pencil-icon" />
             </button>
         </div>
